@@ -30,11 +30,34 @@ const controller = {
 
 	// Update - Form to edit
 	edit: (req, res) => {
-		// Do the magic
+		
+		let productToEdit=products.find(product=>(product.id==req.params.id));
+
+		res.render("product-edit-form", {productToEdit:productToEdit})
 	},
+
 	// Update - Method to update
-	update: (req, res) => {
-		// Do the magic
+	update: (req, res) => { 
+		
+		let productToEdit=products.find(product=>(product.id==req.params.id));
+
+ 		let newArray = products.map(product=>{
+
+			 if(product.id==productToEdit.id){
+				product.name =req.body.name;
+				product.price =req.body.price;
+				product.discount =req.body.discount;
+				product.category =req.body.category;
+				product.description =req.body.description;
+			 }
+			 return product;
+		 })
+
+		 let productJson = JSON.stringify(newArray);
+		 fs.writeFileSync('./src/data/productsDataBase.json', productJson);
+		
+
+		res.redirect("/");
 	},
 
 	// Delete - Delete one product from DB

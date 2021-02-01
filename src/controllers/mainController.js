@@ -9,24 +9,14 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const controller = {
 	index: (req, res) => {
 		res.render("index", {products:products})
-	},
- 	search: (req, res) => {
-		let searchResults = [];
-		for (let i = 0; i < products.length; i++){
-			if(products[i].name.includes(req.query.keywords))
-				searchResults.push(products[i]);	
-		}
-		res.render("results", {searchResults:searchResults})
-	}, /*
+	}, 
+
 	search: (req, res) => {
 		
-		let searchResults =products.filter(product=>product.name);
-		for (let i = 0; i < products.length; i++){
-			if(products[i].name.includes(req.query.keywords))
-				searchResults.push(products[i]);	
-		}
-		res.render("results", {searchResults:searchResults})
-	}, */
+		let searchResults =products.filter(product=>product.name.includes(req.query.keywords));
+		
+		res.render("results", {searchResults, keywords:req.query.keywords})
+	}, 
 };
 
 module.exports = controller;
