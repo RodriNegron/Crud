@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <!-- Include Head -->
-<%- include('partials/head', {title: '¿?'}) %>
+<%- include('partials/head', {title: productFound.name}) %>
 <body>
 	<!-- Header -->
 	<%- include('partials/headerNavbar') %>
@@ -25,18 +25,17 @@
 				<div class="col-12 col-lg-4">
 					<article class="product-detail-info">
 						<h2 class="product-detail-title"><%=productFound.name%></h2>
-						
+						<% if(productFound.discount!=0) { %> 
 							<p class="product-detail-price small">
-								<span>$<%=productFound.price%></span>
+								<span>$<%=new Intl.NumberFormat("de-DE").format(productFound.price) %></span>
 								/
-								<b>DISCOUNT % <%=productFound.discount%> OFF</b>
+								<b>  <%=productFound.discount%> % OFF</b>
 							</p>
-							<p class="product-detail-price">
-								$<%=productFound.price%>
-							</p>
-							<p class="product-detail-price">
-								$<%=productFound.price%>
-							</p>
+						<% } %> 
+						<p class="product-detail-price">
+							$<%=new Intl.NumberFormat("de-DE").format(productFound.price * ((100-productFound.discount)/100))%>
+						</p>
+
 
 						<ul class="actions-list">
 							<li>
