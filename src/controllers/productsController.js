@@ -26,8 +26,18 @@ const controller = {
 	// Create -  Method to store
 	store: (req, res) => {
 
+		let maxId=0;
+
+		products.forEach(element => {
+			if(element.id > maxId){ 
+				maxId = element.id;
+			}
+		});
+		maxId++;
+		
+
 		let newProduct ={
-			id: (products.length++), //!! buscar el id del ultimo elemento del json y sumarle 1
+			id: maxId,
 			name: req.body.name,
 			price: req.body.price,
 			discount: req.body.discount,
