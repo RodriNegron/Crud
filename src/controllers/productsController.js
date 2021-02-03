@@ -78,7 +78,7 @@ const controller = {
 	destroy : (req, res) => {
 		let productToDelete=products.find(product=>(product.id==req.params.id));
 		products= products.filter(product=>(product.id != productToDelete.id));
-		let productJson = JSON.stringify(products);
+		let productJson = JSON.stringify(products, null, 2);
 		fs.writeFileSync('./src/data/productsDataBase.json', productJson);
 
 		 //revisar iD's
