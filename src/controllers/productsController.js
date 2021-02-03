@@ -27,7 +27,7 @@ const controller = {
 	store: (req, res) => {
 
 		let newProduct ={
-			id: (products.length+1),
+			id: (products.length++), //!! buscar el id del ultimo elemento del json y sumarle 1
 			name: req.body.name,
 			price: req.body.price,
 			discount: req.body.discount,
@@ -36,7 +36,7 @@ const controller = {
 		}
 
 		products.push(newProduct);
-		let productJson = JSON.stringify(products);
+		let productJson = JSON.stringify(products, null, 2);
 		fs.writeFileSync('./src/data/productsDataBase.json', productJson);
 		res.redirect("/");
 	},
@@ -50,6 +50,7 @@ const controller = {
 	},
 
 	// Update - Method to update
+
 	update: (req, res) => { 
 		
 		let productToEdit=products.find(product=>(product.id==req.params.id));
@@ -66,9 +67,9 @@ const controller = {
 			 return product;
 		 })
 
-		 let productJson = JSON.stringify(newArray);
+		 let productJson = JSON.stringify(newArray, null, 2);
 		 fs.writeFileSync('./src/data/productsDataBase.json', productJson);
-		
+		 		
 
 		res.redirect("/");
 	},
@@ -79,6 +80,8 @@ const controller = {
 		products= products.filter(product=>(product.id != productToDelete.id));
 		let productJson = JSON.stringify(products);
 		fs.writeFileSync('./src/data/productsDataBase.json', productJson);
+
+		 //revisar iD's
 
 		res.redirect("/");
 	}
