@@ -35,16 +35,16 @@ const controller = {
 		});
 		maxId++;
 		
-
 		let newProduct ={
 			id: maxId,
 			name: req.body.name,
 			price: req.body.price,
 			discount: req.body.discount,
 			category: req.body.category,
-			description: req.body.description
+			description: req.body.description,
+			image: req.file.filename
 		}
-
+		
 		products.push(newProduct);
 		let productJson = JSON.stringify(products, null, 2);
 		fs.writeFileSync('./src/data/productsDataBase.json', productJson);
