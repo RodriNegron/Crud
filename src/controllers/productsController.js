@@ -4,6 +4,9 @@ const path = require('path');
 const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
 let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
+const { validationResult } = require ( "express-validator" );
+
+
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
@@ -34,21 +37,29 @@ const controller = {
 			}
 		});
 		maxId++;
+
+		let errors = validationResult(req);
 		
-		let newProduct ={
-			id: maxId,
-			name: req.body.name,
-			price: req.body.price,
-			discount: req.body.discount,
-			category: req.body.category,
-			description: req.body.description,
-			image: req.file.filename
+		if(!errors.isEmpty){
+			
+			let newProduct ={
+				id: maxId,
+				name: req.body.name,
+				price: req.body.price,
+				discount: req.body.discount,
+				category: req.body.category,
+				description: req.body.description,
+				image: req.file.filename
+			}
+			
+			products.push(newProduct);
+			let productJson = JSON.stringify(products, null, 2);
+			fs.writeFileSync('./src/data/productsDataBase.json', productJson);
+			res.redirect("/");
+		}else{
+			res.render("product-create-form", {errors: errors.mapped(), oldData: req.body});
 		}
 		
-		products.push(newProduct);
-		let productJson = JSON.stringify(products, null, 2);
-		fs.writeFileSync('./src/data/productsDataBase.json', productJson);
-		res.redirect("/");
 	},
 
 	// Update - Form to edit
