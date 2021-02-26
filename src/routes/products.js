@@ -3,17 +3,12 @@ const express = require('express');
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
-const {
-    check
-} = require("express-validator");
+const {check} = require("express-validator");
+
 const productCreateValidation = [
-    check("name").notEmpty().withMessage("Debes completar el nombre").bail().isLength({
-        min: 4
-    }).withMessage("El nombre debe tener al menos 4 caracteres"),
-    check("price").notEmpty().withMessage("Debes fijar un precio").bail(),
+    check("name").notEmpty().withMessage("Debes completar el nombre").bail().isLength({min: 4}).withMessage("El nombre debe tener al menos 4 caracteres"),
     check("price").notEmpty().withMessage("Debes fijar un precio").bail(),
     check("category").notEmpty().withMessage("Debes seleccionar una categoria").bail(),
-
 ];
 
 

@@ -17,6 +17,10 @@ const controller = {
 		
 		res.render("results", {searchResults, keywords:req.query.keywords})
 	}, 
+
+	login: (req, res) => {
+		res.render("login")
+	}, 
 };
 
 module.exports = controller;

@@ -40,7 +40,7 @@ const controller = {
 
 		let errors = validationResult(req);
 		
-		if(!errors.isEmpty){
+		if(errors.isEmpty()){
 			
 			let newProduct ={
 				id: maxId,

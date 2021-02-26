@@ -8,4 +8,6 @@ const mainController = require('../controllers/mainController');
 router.get('/', mainController.index); 
 router.get('/search', mainController.search); 
 
+router.get("/login", mainController.login);
+
 module.exports = router;

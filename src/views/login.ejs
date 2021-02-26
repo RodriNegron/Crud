@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <form action="/users/login" method="POST" autocomplete="off">
+            <div class="row product-detail justify-content-center">
+                <div class="col-12 col-md-7">
+                    <label for="userName" class="form-label">Nombre:</label>
+                    <input type="text" id="userName" name="userName" class="form-input" value= "<%=locals.oldUserData && oldUserData.userName %>" >
+                    <% if (locals.errors && errors.userName) {%> 
+                        <div class="text-danger"><%=errors.userName.msg %></div>
+                        <% } %>
+                </div>
+
+                <div class="col-12 col-md-7">
+                    <label for="" class="form-label">Contraseña</label>
+                    <input type="password" id="password" name="password" class="form-input">
+                    <% if (locals.errors && errors.password) {%> 
+                        <div class="text-danger"><%=errors.password.msg %></div>
+                        <% } %><br>
+                </div>
+                
+
+                <div class="col-7">
+                    <button type="submit" class="buy-now-button">Login</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
